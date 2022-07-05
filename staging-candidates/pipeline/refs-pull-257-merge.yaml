@@ -12,13 +12,13 @@ metadata:
   namespace: pipeline-STAGING_SANDBOX_ID
   annotations:
     fluxcd.io/automated: "true"
-    filter.fluxcd.io/pipelineRunner: glob:refs-pull-257-merge-*-pipeline-runner
+    filter.fluxcd.io/pipelineRunner: glob:refs-pull-257-merge-e1cb69348d9c3461fcb2eaf0b3868a47270558a0-pipeline-runner
   labels:
     sandboxId: STAGING_SANDBOX_ID
 spec:
   releaseName: pipeline
   chart:
-    git: git@github.com:hms-dbmi-cellenics/pipeline
+    git: https://github.com/hms-dbmi-cellenics/uipipeline
     path: chart-infra/
     ref: STAGING_CHART_REF
   valuesFrom:
@@ -29,7 +29,7 @@ spec:
   values:
     clusterEnv: staging
     pipelineRunner:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-257-merge-182f56bcc6d9343e14330312252be9e042954262-pipeline-runner
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-257-merge-e1cb69348d9c3461fcb2eaf0b3868a47270558a0-pipeline-runner
     sandboxId: STAGING_SANDBOX_ID
     memoryRequest: 4Gi
     replicaCount: 0
