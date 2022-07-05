@@ -76,6 +76,7 @@ spec:
     ref: a8f93a9062891339b80e7a871a1d7cdef95f5777
   releaseName: api
   values:
+    fluxReadonlyIsCool: true
     biomageCi:
       rdsSandboxId: martinfosco-3ycxkny1e8sni1
       repo: hms-dbmi-cellenics/api
