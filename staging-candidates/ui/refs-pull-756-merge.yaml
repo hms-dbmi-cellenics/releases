@@ -18,7 +18,7 @@ metadata:
 spec:
   releaseName: ui
   chart:
-    git: git@github.com:hms-dbmi-cellenics/iac
+    git: https://github.com/hms-dbmi-cellenics/iac
     path: charts/nodejs
     ref: STAGING_CHART_REF
   values:
@@ -42,7 +42,7 @@ spec:
     image:
       registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
       repository: ui
-      tag: refs-pull-756-merge-e67883ea1893b092777d83bd301fa00a19c6a966
+      tag: refs-pull-756-merge-d4d539dec7726e8c7cae4d52e0d67ea8ba18a5f0
     replicaCount: 1
     serviceAccount:
       iamRole: ui-role-staging
