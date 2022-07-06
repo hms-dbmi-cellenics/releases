@@ -76,6 +76,7 @@ spec:
     ref: 460b9b18b940be57fc76e35c548a63cc55ed02f7
   releaseName: api
   values:
+    thisThingWorks: true
     biomageCi:
       rdsSandboxId: default
       repo: hms-dbmi-cellenics/api
