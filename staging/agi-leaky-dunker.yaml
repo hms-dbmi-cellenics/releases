@@ -180,7 +180,7 @@ spec:
     clusterEnv: staging
     memoryRequest: 4Gi
     pipelineRunner:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-264-merge-6b40b343f68c9351506d9b723e45a53fab4fbc24-pipeline-runner
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-264-merge-0590424b285fdd20a6c2846ccc2e97ab0d3c7cb2-pipeline-runner
     replicaCount: 0
     sandboxId: agi-leaky-dunker
     serviceAccount:
