@@ -20,7 +20,7 @@ spec:
   chart:
     git: https://github.com/hms-dbmi-cellenics/pipeline
     path: chart-infra/
-    ref: bcdd80a57e79f5f6cd9e97ca6224a52628ebc0e2
+    ref: 4687c56b36be0fbbd4189d6f1526bde57db78166
   valuesFrom:
     - configMapKeyRef:
         name: account-config
@@ -29,7 +29,7 @@ spec:
   values:
     clusterEnv: production
     pipelineRunner:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-tags-0.23.2-pipeline-runner
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-tags-0.23.3-pipeline-runner
     sandboxId: default
     memoryRequest: 29Gi
     replicaCount: 3
