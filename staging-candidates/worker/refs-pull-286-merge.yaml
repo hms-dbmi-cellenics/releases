@@ -12,8 +12,8 @@ metadata:
   namespace: worker-STAGING_SANDBOX_ID
   annotations:
     fluxcd.io/automated: "true"
-    filter.fluxcd.io/r: glob:refs-pull-286-merge-7d9834fd621fafe9c559edf410a7e1e03494fca8-*-r
-    filter.fluxcd.io/python: glob:refs-pull-286-merge-7d9834fd621fafe9c559edf410a7e1e03494fca8-*-python
+    filter.fluxcd.io/r: glob:refs-pull-286-merge-9f66640e5320547612d42139001bf1f5abb51041-*-r
+    filter.fluxcd.io/python: glob:refs-pull-286-merge-9f66640e5320547612d42139001bf1f5abb51041-*-python
   labels:
     sandboxId: STAGING_SANDBOX_ID
 spec:
@@ -35,7 +35,7 @@ spec:
     sandboxId: STAGING_SANDBOX_ID
     replicaCount: 0
     r:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-pull-286-merge-7d9834fd621fafe9c559edf410a7e1e03494fca8-r
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-pull-286-merge-9f66640e5320547612d42139001bf1f5abb51041-r
       memoryRequest: 4Gi
     python:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-pull-286-merge-7d9834fd621fafe9c559edf410a7e1e03494fca8-python
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-pull-286-merge-9f66640e5320547612d42139001bf1f5abb51041-python
