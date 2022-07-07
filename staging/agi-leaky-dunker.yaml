@@ -29,7 +29,7 @@ spec:
     image:
       registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
       repository: ui
-      tag: refs-pull-761-merge-be6177eb2cc22493433207f23f1d394bfe451f74
+      tag: refs-pull-761-merge-66b7469c074ba44cc284204d6656a7f3ed0b57dc
     kubernetes:
       env: staging
     livenessProbe:
@@ -141,7 +141,7 @@ spec:
     python:
       image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-pull-286-merge-2542e2eb55486bbe65dd6d54a38926d945216ef5-python
     r:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-pull-286-merge-9966a1ae1dec9b62b2f135ad9f7ccdb0993a478e-r
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-pull-286-merge-f2ebfd940d6c56ffe9253246c5df6873e4846d43-r
       memoryRequest: 4Gi
     replicaCount: 0
     sandboxId: agi-leaky-dunker
