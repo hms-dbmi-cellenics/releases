@@ -12,7 +12,7 @@ metadata:
   namespace: pipeline-STAGING_SANDBOX_ID
   annotations:
     fluxcd.io/automated: "true"
-    filter.fluxcd.io/pipelineRunner: glob:refs-pull-264-merge-ad246599ab75b014a394992f8b06fe8480a4b7e1-pipeline-runner
+    filter.fluxcd.io/pipelineRunner: glob:refs-pull-264-merge-3acfcf3036a2cc0d121e6f0b75e1b5ae4a0e71bf-pipeline-runner
   labels:
     sandboxId: STAGING_SANDBOX_ID
 spec:
@@ -29,7 +29,7 @@ spec:
   values:
     clusterEnv: staging
     pipelineRunner:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-264-merge-ad246599ab75b014a394992f8b06fe8480a4b7e1-pipeline-runner
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-264-merge-3acfcf3036a2cc0d121e6f0b75e1b5ae4a0e71bf-pipeline-runner
     sandboxId: STAGING_SANDBOX_ID
     memoryRequest: 4Gi
     replicaCount: 0
