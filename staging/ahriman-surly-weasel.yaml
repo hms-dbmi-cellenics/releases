@@ -1,0 +1,191 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: ahriman-surly-weasel
+  name: ui-ahriman-surly-weasel
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/chart-image: glob:refs-pull-778-merge-*
+    fluxcd.io/automated: 'true'
+  labels:
+    sandboxId: ahriman-surly-weasel
+  name: ui
+  namespace: ui-ahriman-surly-weasel
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/iac
+    path: charts/nodejs
+    ref: refs/heads/master
+  releaseName: ui
+  values:
+    biomageCi:
+      repo: hms-dbmi-cellenics/ui
+      sandboxId: ahriman-surly-weasel
+    image:
+      registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
+      repository: ui
+      tag: refs-pull-778-merge-595b385768b3ec1b126afd0460c90ba5c65630e1
+    kubernetes:
+      env: staging
+    livenessProbe:
+      probeType: tcpSocket
+    loadBalancerHealthCheck:
+      path: /robots.txt
+      periodSeconds: 30
+    readinessProbe:
+      command:
+      - echo
+      - '0'
+      probeType: exec
+    replicaCount: 1
+    service:
+      additionalHosts: false
+    serviceAccount:
+      iamRole: ui-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: ahriman-surly-weasel
+  name: api-ahriman-surly-weasel
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/chart-image: glob:refs-heads-master-*
+    fluxcd.io/automated: 'false'
+  labels:
+    sandboxId: ahriman-surly-weasel
+  name: api
+  namespace: api-ahriman-surly-weasel
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/iac
+    path: charts/nodejs
+    ref: d21e981f797c2698f7d686d2f78e733fbcd9e67c
+  releaseName: api
+  values:
+    biomageCi:
+      rdsSandboxId: default
+      repo: hms-dbmi-cellenics/api
+      sandboxId: ahriman-surly-weasel
+    hpa:
+      enabled: false
+    image:
+      registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
+      repository: api
+      tag: refs-heads-master-63a57782e0d480991a6379b7ccb91915e99619c2
+    ingress:
+      annotations:
+        alb.ingress.kubernetes.io/healthcheck-path: /v1/health
+    kubernetes:
+      env: staging
+    livenessProbe:
+      probeType: tcpSocket
+    readinessProbe:
+      path: /v1/health
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 100m
+    service:
+      externalPort: 3000
+      internalPort: 3000
+    serviceAccount:
+      iamRole: api-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: ahriman-surly-weasel
+  name: worker-ahriman-surly-weasel
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/python: glob:refs-heads-master-*-python
+    filter.fluxcd.io/r: glob:refs-heads-master-*-r
+    fluxcd.io/automated: 'false'
+  labels:
+    sandboxId: ahriman-surly-weasel
+  name: worker
+  namespace: worker-ahriman-surly-weasel
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/worker
+    path: chart-infra/
+    ref: f0d41ec488a415d7cc7cacfe41b42284a9178d72
+  releaseName: worker
+  values:
+    kubernetes:
+      env: staging
+    python:
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-heads-master-f0d41ec488a415d7cc7cacfe41b42284a9178d72-python
+    r:
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/worker:refs-heads-master-f0d41ec488a415d7cc7cacfe41b42284a9178d72-r
+      memoryRequest: 4Gi
+    replicaCount: 0
+    sandboxId: ahriman-surly-weasel
+    serviceAccount:
+      iamRole: worker-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: ahriman-surly-weasel
+  name: pipeline-ahriman-surly-weasel
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/pipelineRunner: glob:refs-heads-master-*-pipeline-runner
+    fluxcd.io/automated: 'false'
+  labels:
+    sandboxId: ahriman-surly-weasel
+  name: pipeline
+  namespace: pipeline-ahriman-surly-weasel
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/pipeline
+    path: chart-infra/
+    ref: 2758efbafffc7f93805d34f188eea94e3c36d851
+  releaseName: pipeline
+  values:
+    clusterEnv: staging
+    memoryRequest: 4Gi
+    pipelineRunner:
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-heads-master-2758efbafffc7f93805d34f188eea94e3c36d851-pipeline-runner
+    replicaCount: 0
+    sandboxId: ahriman-surly-weasel
+    serviceAccount:
+      iamRole: pipeline-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
