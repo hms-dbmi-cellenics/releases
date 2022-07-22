@@ -26,7 +26,7 @@ spec:
       externalPort: 3000
       internalPort: 3000
     readinessProbe:
-      path: "/v1/health"
+      path: "/v2/health"
     livenessProbe:
       probeType: tcpSocket
     resources:
@@ -36,7 +36,7 @@ spec:
       enabled: false
     ingress:
       annotations:
-        alb.ingress.kubernetes.io/healthcheck-path: /v1/health
+        alb.ingress.kubernetes.io/healthcheck-path: /v2/health
     kubernetes:
       env: staging
     biomageCi:
@@ -46,7 +46,7 @@ spec:
     image:
       registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
       repository: api
-      tag: refs-heads-master-63a57782e0d480991a6379b7ccb91915e99619c2
+      tag: refs-heads-master-ec0fe8f9415d5ea78a604dde075775f1e4fca03a
     replicaCount: 1
     serviceAccount:
       iamRole: api-role-staging
