@@ -180,7 +180,7 @@ spec:
     clusterEnv: staging
     memoryRequest: 4Gi
     pipelineRunner:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-267-merge-eb5abf7228c0d9e1a653213bc4f9c8a0c4fd5e41-pipeline-runner
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-267-merge-e3e8589a6143f699de3218654614dba6abbd6f7f-pipeline-runner
     replicaCount: 0
     sandboxId: ahriman-flaky-warthog
     serviceAccount:
