@@ -18,7 +18,7 @@ metadata:
 spec:
   releaseName: ui
   chart:
-    git: git@github.com:hms-dbmi-cellenics/iac
+    git: https://github.com/hms-dbmi-cellenics/iac
     path: charts/nodejs
     ref: STAGING_CHART_REF
   values:
@@ -32,6 +32,8 @@ spec:
       periodSeconds: 30
     livenessProbe:
       probeType: tcpSocket
+    service:
+      additionalHosts: false
     kubernetes:
       env: staging
     biomageCi:
@@ -40,7 +42,7 @@ spec:
     image:
       registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
       repository: ui
-      tag: refs-pull-719-merge-24ab4f08dc6d96bc72410f3f07dc7acb84d3c71c
+      tag: refs-pull-719-merge-3b8e0a5f75a20660d07e5a7d4de0e799dbd90919
     replicaCount: 1
     serviceAccount:
       iamRole: ui-role-staging
