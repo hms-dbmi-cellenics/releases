@@ -157,7 +157,7 @@ kind: Namespace
 metadata:
   labels:
     sandboxId: ahriman-hackathon
-  name: pipeline-ahriman-hackathon
+  name: pipeline-node-ahriman-hackathon
 ---
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
@@ -168,7 +168,7 @@ metadata:
   labels:
     sandboxId: ahriman-hackathon
   name: pipeline
-  namespace: pipeline-ahriman-hackathon
+  namespace: pipeline-node-ahriman-hackathon
 spec:
   chart:
     git: https://github.com/hms-dbmi-cellenics/pipeline
