@@ -189,3 +189,41 @@ spec:
       key: account-config.yaml
       name: account-config
       namespace: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: ahriman-hackathon
+  name: pipeline-ahriman-hackathon-xl
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/pipelineRunner: glob:refs-heads-master-*-pipeline-runner
+    fluxcd.io/automated: 'false'
+  labels:
+    sandboxId: ahriman-hackathon
+  name: pipeline
+  namespace: pipeline-ahriman-hackathon-xl
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/pipeline
+    path: chart-infra/
+    ref: e2a80669062f2eadf414a0f4aa7c851490534c94
+  releaseName: pipeline
+  values:
+    clusterEnv: staging
+    memoryRequest: 4Gi
+    pipelineRunner:
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-heads-master-e2a80669062f2eadf414a0f4aa7c851490534c94-pipeline-runner
+    replicaCount: 0
+    sandboxId: ahriman-hackathon
+    serviceAccount:
+      iamRole: pipeline-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
