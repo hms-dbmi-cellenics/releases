@@ -177,7 +177,7 @@ spec:
   releaseName: pipeline
   values:
     clusterEnv: staging
-    memoryRequest: 4Gi
+    memoryRequest: 50Gi
     pipelineRunner:
       image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-heads-master-e2a80669062f2eadf414a0f4aa7c851490534c94-pipeline-runner
     replicaCount: 0
