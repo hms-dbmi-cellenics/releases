@@ -174,7 +174,7 @@ spec:
   chart:
     git: https://github.com/hms-dbmi-cellenics/pipeline
     path: chart-infra/
-    ref: e2a80669062f2eadf414a0f4aa7c851490534c94
+    ref: refs/head/xl-pods
   releaseName: pipeline
   values:
     clusterEnv: staging
