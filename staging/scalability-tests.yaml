@@ -180,7 +180,7 @@ spec:
     clusterEnv: staging
     memoryRequest: 4Gi
     pipelineRunner:
-      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-239-merge-328cf0bef1ba893f37c75787b45be88dfefd5243-pipeline-runner
+      image: 242905224710.dkr.ecr.eu-west-1.amazonaws.com/pipeline:refs-pull-239-merge-60050617078fd5fbe839a7c2f88005040521ce11-pipeline-runner
     replicaCount: 0
     sandboxId: scalability-tests
     serviceAccount:
