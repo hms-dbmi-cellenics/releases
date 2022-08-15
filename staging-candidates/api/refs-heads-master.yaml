@@ -44,9 +44,9 @@ spec:
       sandboxId: STAGING_SANDBOX_ID
       rdsSandboxId: STAGING_RDS_SANDBOX_ID
     image:
-      registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: refs-heads-master-249ac11a5b428adcf4798c2e38c221a36a617a68
+      tag: refs-heads-master-8a11ae7b4ad342fb925cb66efc35e5de1a32444a
     replicaCount: 1
     serviceAccount:
       iamRole: api-role-staging
