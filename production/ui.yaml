@@ -40,9 +40,9 @@ spec:
       repo: hms-dbmi-cellenics/ui
       sandboxId: default
     image:
-      registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: ui
-      tag: 0.40.0
+      tag: 0.41.0
     replicaCount: 4
     serviceAccount:
       iamRole: ui-role-production
