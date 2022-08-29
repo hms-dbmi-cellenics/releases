@@ -46,7 +46,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: 0.36.0
+      tag: 0.37.0
     replicaCount: 4
     serviceAccount:
       iamRole: api-role-production
