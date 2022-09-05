@@ -40,9 +40,9 @@ spec:
       repo: hms-dbmi-cellenics/ui
       sandboxId: STAGING_SANDBOX_ID
     image:
-      registry: 242905224710.dkr.ecr.eu-west-1.amazonaws.com
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: ui
-      tag: refs-pull-794-merge-767ff340c994f4988bff6faf02787d4f6ef2d0f8
+      tag: refs-pull-794-merge-443ddda92b7a203680809d19549518d967aad005
     replicaCount: 1
     serviceAccount:
       iamRole: ui-role-staging
