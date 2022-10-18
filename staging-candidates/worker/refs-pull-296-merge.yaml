@@ -35,7 +35,7 @@ spec:
     sandboxId: STAGING_SANDBOX_ID
     replicaCount: 0
     r:
-      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-pull-296-merge-7c739a37ec21f8ebda0d0ed54f662750b937ec61-r
+      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-pull-296-merge-a8a2df8e964bdea1619e159d0b1f848e367f7983-r
       memoryRequest: 4Gi
     python:
-      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-pull-296-merge-7c739a37ec21f8ebda0d0ed54f662750b937ec61-python
+      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-pull-296-merge-a8a2df8e964bdea1619e159d0b1f848e367f7983-python
