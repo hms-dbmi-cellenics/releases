@@ -27,7 +27,7 @@ resource in this repository. See the section on CI for more details, and [this](
 explanation of how Flux works.
 
 **Important**: Accordingly, this repo is automatically populated by the CI/CD
-pipelines of various Biomage deployments. Do not commit, push, or submit a pull
+pipelines of various Cellenics deployments. Do not commit, push, or submit a pull
 request to change manifests in this repo. Pull requests attempting to modify
 files except documentation will be automatically rejected.
 
@@ -56,4 +56,4 @@ Each CI pipeline needs a certain set of permissions from both GitHub and AWS to 
 AWS privileges that should be available to the CI pipeline should be placed under `.ci.yaml`.
 
 Changes to CI privileges must be deployed *manually* by someone with sufficient access
-by running `biomage rotate-ci` using [biomage-utils](https://github.com/hms-dbmi-cellenics/biomage-utils).
+by running `cellenics rotate-ci` using [cellenics-utils](https://github.com/hms-dbmi-cellenics/cellenics-utils).
