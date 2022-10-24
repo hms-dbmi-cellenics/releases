@@ -29,7 +29,7 @@ spec:
   values:
     clusterEnv: staging
     pipelineRunner:
-      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/pipeline:refs-pull-285-merge-24d4e373c692063231bd9c9ac3feb402f4cd7d27-pipeline-runner
+      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/pipeline:refs-pull-285-merge-6a696ce36c675b93b1d5038b24d4f2c506350f9e-pipeline-runner
     sandboxId: STAGING_SANDBOX_ID
     memoryRequest: 4Gi
     replicaCount: 0
