@@ -1,0 +1,191 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: alex-ui801
+  name: ui-alex-ui801
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/chart-image: glob:refs-pull-801-merge-*
+    fluxcd.io/automated: 'true'
+  labels:
+    sandboxId: alex-ui801
+  name: ui
+  namespace: ui-alex-ui801
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/iac
+    path: charts/nodejs
+    ref: refs/heads/master
+  releaseName: ui
+  values:
+    biomageCi:
+      repo: hms-dbmi-cellenics/ui
+      sandboxId: alex-ui801
+    image:
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+      repository: ui
+      tag: refs-pull-801-merge-961affdd11f1d4d4c71cc3331ebcd38eb334ba9c
+    kubernetes:
+      env: staging
+    livenessProbe:
+      probeType: tcpSocket
+    loadBalancerHealthCheck:
+      path: /robots.txt
+      periodSeconds: 30
+    readinessProbe:
+      command:
+      - echo
+      - '0'
+      probeType: exec
+    replicaCount: 1
+    service:
+      additionalHosts: false
+    serviceAccount:
+      iamRole: ui-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: alex-ui801
+  name: api-alex-ui801
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/chart-image: glob:refs-heads-master-*
+    fluxcd.io/automated: 'false'
+  labels:
+    sandboxId: alex-ui801
+  name: api
+  namespace: api-alex-ui801
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/iac
+    path: charts/nodejs
+    ref: 0088df0cd636bd7a85c7e21da2a14e072852874e
+  releaseName: api
+  values:
+    biomageCi:
+      rdsSandboxId: default
+      repo: hms-dbmi-cellenics/api
+      sandboxId: alex-ui801
+    hpa:
+      enabled: false
+    image:
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+      repository: api
+      tag: refs-heads-master-6b84c0fe036fee8b256f4b73d2bbed0e8c07fafb
+    ingress:
+      annotations:
+        alb.ingress.kubernetes.io/healthcheck-path: /v2/health
+    kubernetes:
+      env: staging
+    livenessProbe:
+      probeType: tcpSocket
+    readinessProbe:
+      path: /v2/health
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 100m
+    service:
+      externalPort: 3000
+      internalPort: 3000
+    serviceAccount:
+      iamRole: api-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: alex-ui801
+  name: worker-alex-ui801
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/python: glob:refs-heads-master-*-python
+    filter.fluxcd.io/r: glob:refs-heads-master-*-r
+    fluxcd.io/automated: 'false'
+  labels:
+    sandboxId: alex-ui801
+  name: worker
+  namespace: worker-alex-ui801
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/worker
+    path: chart-infra/
+    ref: 8595a2e5253a308d777202bc430f6132420717b6
+  releaseName: worker
+  values:
+    kubernetes:
+      env: staging
+    python:
+      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-heads-master-8595a2e5253a308d777202bc430f6132420717b6-python
+    r:
+      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-heads-master-8595a2e5253a308d777202bc430f6132420717b6-r
+      memoryRequest: 4Gi
+    replicaCount: 0
+    sandboxId: alex-ui801
+    serviceAccount:
+      iamRole: worker-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    sandboxId: alex-ui801
+  name: pipeline-alex-ui801
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  annotations:
+    filter.fluxcd.io/pipelineRunner: glob:refs-heads-master-*-pipeline-runner
+    fluxcd.io/automated: 'false'
+  labels:
+    sandboxId: alex-ui801
+  name: pipeline
+  namespace: pipeline-alex-ui801
+spec:
+  chart:
+    git: https://github.com/hms-dbmi-cellenics/pipeline
+    path: chart-infra/
+    ref: 6cf44ac15ccdbd1e056722c26209333cb8a79231
+  releaseName: pipeline
+  values:
+    clusterEnv: staging
+    memoryRequest: 4Gi
+    pipelineRunner:
+      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/pipeline:refs-heads-master-6cf44ac15ccdbd1e056722c26209333cb8a79231-pipeline-runner
+    replicaCount: 0
+    sandboxId: alex-ui801
+    serviceAccount:
+      iamRole: pipeline-role-staging
+  valuesFrom:
+  - configMapKeyRef:
+      key: account-config.yaml
+      name: account-config
+      namespace: flux
