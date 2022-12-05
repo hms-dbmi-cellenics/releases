@@ -21,7 +21,7 @@ spec:
   chart:
     git: https://github.com/hms-dbmi-cellenics/worker
     path: chart-infra/
-    ref: 8595a2e5253a308d777202bc430f6132420717b6
+    ref: 5d5ed8772ea8730d33c6b777d37d8b3939ad0e06
   valuesFrom:
     - configMapKeyRef:
         name: account-config
@@ -35,7 +35,7 @@ spec:
     sandboxId: default
     replicaCount: 1
     r:
-      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-heads-master-8595a2e5253a308d777202bc430f6132420717b6-r
+      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-heads-master-5d5ed8772ea8730d33c6b777d37d8b3939ad0e06-r
       memoryRequest: 28Gi
     python:
-      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-heads-master-8595a2e5253a308d777202bc430f6132420717b6-python
+      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker:refs-heads-master-5d5ed8772ea8730d33c6b777d37d8b3939ad0e06-python
