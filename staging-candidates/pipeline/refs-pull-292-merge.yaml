@@ -78,6 +78,7 @@ spec:
         kind: GitRepository
         name: pipeline-chart
         namespace: pipeline-STAGING_SANDBOX_ID
+      reconcileStrategy: Revision
   values:
     replicaCount: 0
     clusterEnv: staging
@@ -85,7 +86,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: pipeline
-      tag: refs-pull-292-merge-307c46a9a8e8ac9a4c05879397657485e73b44d9-pipeline-runner-1671038706 # {"$imagepolicy": "pipeline-STAGING_SANDBOX_ID:pipeline:tag"}
+      tag: refs-pull-292-merge-d2afa2ef34b10f9d86cf612cc318746f3dc8bee3-pipeline-runner-1671475656 # {"$imagepolicy": "pipeline-STAGING_SANDBOX_ID:pipeline:tag"}
     memoryRequest: 4Gi
     serviceAccount:
       iamRole: pipeline-role-staging
