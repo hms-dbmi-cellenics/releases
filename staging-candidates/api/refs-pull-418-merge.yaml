@@ -12,7 +12,7 @@ metadata:
   namespace: api-STAGING_SANDBOX_ID
 spec:
   interval: 5m0s
-  url: https://github.com/biomage-org/iac
+  url: https://github.com/hms-dbmi-cellenics/iac
   ref:
     branch: master
 ---
@@ -22,7 +22,7 @@ metadata:
   name: api
   namespace: api-STAGING_SANDBOX_ID
 spec:
-  image: 160782110667.dkr.ecr.eu-west-1.amazonaws.com/api
+  image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/api
   interval: 2m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
@@ -100,9 +100,9 @@ spec:
       sandboxId: STAGING_SANDBOX_ID
       rdsSandboxId: STAGING_RDS_SANDBOX_ID
     image:
-      registry: 160782110667.dkr.ecr.eu-west-1.amazonaws.com
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: refs-pull-418-merge-486f3a69c21086545545048312a70a92c08674c5-1671489561 # {"$imagepolicy": "api-STAGING_SANDBOX_ID:api:tag"}
+      tag: refs-pull-418-merge-589d300ed4a87c6d08b9d6277b782be9dfe166b4-1671574610 # {"$imagepolicy": "api-STAGING_SANDBOX_ID:api:tag"}
     replicaCount: 1
     serviceAccount:
       iamRole: api-role-staging
