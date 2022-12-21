@@ -12,7 +12,7 @@ metadata:
   namespace: api-STAGING_SANDBOX_ID
 spec:
   interval: 5m0s
-  url: https://github.com/hms-dbmi-cellenics/api
+  url: https://github.com/hms-dbmi-cellenics/iac
   ref:
     branch: master
 ---
@@ -102,7 +102,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: refs-pull-418-merge-3f56be7046889c5fc1d2fadc6ff48d696feffa4d-1671641975 # {"$imagepolicy": "api-STAGING_SANDBOX_ID:api:tag"}
+      tag: refs-pull-418-merge-c5aa3ecd7d67ed77b685aaf288bf7b5d86ee9b92-1671651741 # {"$imagepolicy": "api-STAGING_SANDBOX_ID:api:tag"}
     replicaCount: 1
     serviceAccount:
       iamRole: api-role-staging
