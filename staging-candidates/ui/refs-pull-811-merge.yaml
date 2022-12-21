@@ -12,7 +12,7 @@ metadata:
   namespace: ui-STAGING_SANDBOX_ID
 spec:
   interval: 5m0s
-  url: https://github.com/hms-dbmi-cellenics/iac
+  url: https://github.com/hms-dbmi-cellenics/ui
   ref:
     branch: master
 ---
@@ -100,7 +100,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: ui
-      tag: refs-pull-811-merge-30a7bccc2a79cd6062bac469012a9bd67adce6f0-1671584497 # {"$imagepolicy": "ui-STAGING_SANDBOX_ID:ui:tag"}
+      tag: refs-pull-811-merge-c16d65f257797a0d380b29032ff8b173e300643e-1671643620 # {"$imagepolicy": "ui-STAGING_SANDBOX_ID:ui:tag"}
     replicaCount: 1
     serviceAccount:
       iamRole: ui-role-staging
