@@ -12,7 +12,7 @@ metadata:
   namespace: worker-STAGING_SANDBOX_ID
 spec:
   interval: 5m0s
-  url: https://github.com/biomage-org/worker
+  url: https://github.com/hms-dbmi-cellenics/worker
   ref:
     branch: biomage-changes-1
 ---
@@ -101,13 +101,13 @@ spec:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-pull-297-merge-ff1c0f3c7663735067c048a22464c91318d4591e-1671475755-r # {"$imagepolicy": "worker-STAGING_SANDBOX_ID:worker-r:tag"}
+        tag: refs-pull-297-merge-ca8f7e54a9a9ce06965fcb3b4e1461e87e5967b8-1671582715-r # {"$imagepolicy": "worker-STAGING_SANDBOX_ID:worker-r:tag"}
       memoryRequest: 4Gi
     python:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-pull-297-merge-ff1c0f3c7663735067c048a22464c91318d4591e-1671475755-python # {"$imagepolicy": "worker-STAGING_SANDBOX_ID:worker-python:tag"}
+        tag: refs-pull-297-merge-ca8f7e54a9a9ce06965fcb3b4e1461e87e5967b8-1671582715-python # {"$imagepolicy": "worker-STAGING_SANDBOX_ID:worker-python:tag"}
     kubernetes:
       env: staging
     serviceAccount:
