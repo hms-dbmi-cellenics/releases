@@ -12,7 +12,7 @@ metadata:
   namespace: ui-STAGING_SANDBOX_ID
 spec:
   interval: 5m0s
-  url: https://github.com/biomage-org/iac
+  url: https://github.com/hms-dbmi-cellenics/iac
   ref:
     branch: master
 ---
@@ -100,7 +100,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: ui
-      tag: refs-pull-811-merge-e7b014d54dfa3e7df255c97357b6d4322275a25f-1671491389 # {"$imagepolicy": "ui-STAGING_SANDBOX_ID:ui:tag"}
+      tag: refs-pull-811-merge-30a7bccc2a79cd6062bac469012a9bd67adce6f0-1671584497 # {"$imagepolicy": "ui-STAGING_SANDBOX_ID:ui:tag"}
     replicaCount: 1
     serviceAccount:
       iamRole: ui-role-staging
