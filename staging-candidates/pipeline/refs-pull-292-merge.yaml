@@ -12,7 +12,7 @@ metadata:
   namespace: pipeline-STAGING_SANDBOX_ID
 spec:
   interval: 5m0s
-  url: https://github.com/biomage-org/pipeline
+  url: https://github.com/hms-dbmi-cellenics/pipeline
   ref:
     branch: biomage-changes-1
 ---
@@ -86,7 +86,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: pipeline
-      tag: refs-pull-292-merge-d2afa2ef34b10f9d86cf612cc318746f3dc8bee3-pipeline-runner-1671475656 # {"$imagepolicy": "pipeline-STAGING_SANDBOX_ID:pipeline:tag"}
+      tag: refs-pull-292-merge-f2cc6d864fcadf8ff95a32b031662f4fedb5281b-pipeline-runner-1671582741 # {"$imagepolicy": "pipeline-STAGING_SANDBOX_ID:pipeline:tag"}
     memoryRequest: 4Gi
     serviceAccount:
       iamRole: pipeline-role-staging
