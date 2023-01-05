@@ -215,7 +215,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: refs-pull-418-merge-22c7e4d0c455c44e3bb81a84ab6a706278c57d0a-1672938472 # {"$imagepolicy": "api-alex-biomage-changes-1:api:tag"}
+      tag: refs-pull-418-merge-121d30c13d95fd670c26d09bf62f12b8344a4b82-1672954265 # {"$imagepolicy": "api-alex-biomage-changes-1:api:tag"}
     replicaCount: 1
     serviceAccount:
       iamRole: api-role-staging
