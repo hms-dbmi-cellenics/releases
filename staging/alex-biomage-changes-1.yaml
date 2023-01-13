@@ -435,7 +435,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: pipeline
-      tag: refs-pull-292-merge-783addc0e36151cca7edb4434533d6eeaebf6917-pipeline-runner-1672879596 # {"$imagepolicy": "pipeline-alex-biomage-changes-1:pipeline:tag"}
+      tag: refs-pull-292-merge-f81ed64627e3ef524c33715416a34c67cf5ee263-pipeline-runner-1673644974 # {"$imagepolicy": "pipeline-alex-biomage-changes-1:pipeline:tag"}
     memoryRequest: 4Gi
     serviceAccount:
       iamRole: pipeline-role-staging
