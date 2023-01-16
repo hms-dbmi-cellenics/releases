@@ -5,33 +5,94 @@ metadata:
   labels:
     sandboxId: default
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: pipeline-chart
+  namespace: pipeline-default
+spec:
+  interval: 5m0s
+  url: https://github.com/hms-dbmi-cellenics/pipeline
+  ref:
+    commit: 09923673a0b62e5607cad13fed11b78130659059
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: pipeline
+  namespace: pipeline-default
+spec:
+  image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/pipeline
+  interval: 2m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: pipeline
+  namespace: pipeline-default
+spec:
+  imageRepositoryRef:
+    name: pipeline
+    namespace: pipeline-default
+  filterTags:
+    pattern: ^refs-tags-(?P<version>[0-9]+\.[0-9]+\.[0-9]+)-pipeline-runner$
+    extract: $version
+  policy:
+    semver:
+      range: '>=0.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: pipeline-image-update
+  namespace: pipeline-default
+spec:
+  interval: 2m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    commit:
+      author:
+        name: Flux - Pipeline image update
+        email: ci@biomage.net
+  update:
+    strategy: Setters
+    path: ./production
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: pipeline
   namespace: pipeline-default
-  annotations:
-    fluxcd.io/automated: "true"
-    filter.fluxcd.io/pipelineRunner: glob:refs-tags-*-pipeline-runner
   labels:
     sandboxId: default
 spec:
   releaseName: pipeline
+  interval: 2m0s
   chart:
-    git: https://github.com/hms-dbmi-cellenics/pipeline
-    path: chart-infra/
-    ref: 349be4f06576265230b3235493ae8d3ce02e0a56
-  valuesFrom:
-    - configMapKeyRef:
-        name: account-config
-        namespace: flux
-        key: account-config.yaml
+    spec:
+      chart: chart-infra/
+      sourceRef:
+        kind: GitRepository
+        name: pipeline-chart
+        namespace: pipeline-default
+      reconcileStrategy: Revision
   values:
-    clusterEnv: production
-    pipelineRunner:
-      image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/pipeline:refs-tags-0.28.0-pipeline-runner
-    sandboxId: default
-    memoryRequest: 29Gi
     replicaCount: 3
+    clusterEnv: production
+    sandboxId: default
+    image:
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+      repository: pipeline
+      tag: refs-tags-0.29.0-pipeline-runner # {"$imagepolicy": "pipeline-default:pipeline:tag"}
+    memoryRequest: 40Gi
     serviceAccount:
       iamRole: pipeline-role-production
+    datadogTags: kube_namespace:pipeline-default
+  valuesFrom:
+    - kind: ConfigMap
+      valuesKey: account-config.yaml
+      name: account-config
+      optional: false
