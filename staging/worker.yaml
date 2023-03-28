@@ -16,7 +16,7 @@ spec:
   ref:
     branch: master
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: worker
@@ -24,8 +24,9 @@ metadata:
 spec:
   image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker
   interval: 2m0s
+  provider: aws
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: worker-r
@@ -41,7 +42,7 @@ spec:
     numerical:
       order: asc
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: worker-python
@@ -101,13 +102,13 @@ spec:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-3473866197a6db923c2d5570fa415c4e0745740a-1677535574-r # {"$imagepolicy": "worker-default:worker-r:tag"}
+        tag: refs-heads-master-48f4180dfda0e8c9ecbb2353f5671b0dfd8e089c-1680034821-r # {"$imagepolicy": "worker-default:worker-r:tag"}
       memoryRequest: 20Gi
     python:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-3473866197a6db923c2d5570fa415c4e0745740a-1677535574-python # {"$imagepolicy": "worker-default:worker-python:tag"}
+        tag: refs-heads-master-48f4180dfda0e8c9ecbb2353f5671b0dfd8e089c-1680034821-python # {"$imagepolicy": "worker-default:worker-python:tag"}
     kubernetes:
       env: staging
     serviceAccount:
