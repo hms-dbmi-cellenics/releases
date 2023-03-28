@@ -16,7 +16,7 @@ spec:
   ref:
     branch: master
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: pipeline
@@ -24,8 +24,9 @@ metadata:
 spec:
   image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/pipeline
   interval: 2m0s
+  provider: aws
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: pipeline
@@ -86,7 +87,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: pipeline
-      tag: refs-heads-master-6c1a2ca23078a5684bef648b3b05a07e099846ac-pipeline-runner-1677535522 # {"$imagepolicy": "pipeline-default:pipeline:tag"}
+      tag: refs-heads-master-3e82d35dd995537c76ff5b25bab588449cfeea0d-pipeline-runner-1680025553 # {"$imagepolicy": "pipeline-default:pipeline:tag"}
     memoryRequest: 16Gi
     serviceAccount:
       iamRole: pipeline-role-staging
