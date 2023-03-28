@@ -16,7 +16,7 @@ spec:
   ref:
     branch: master
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: ui
@@ -24,8 +24,9 @@ metadata:
 spec:
   image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/ui
   interval: 2m0s
+  provider: aws
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: ui
@@ -100,7 +101,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: ui
-      tag: refs-heads-master-ab33aa5224d7146abee01179ddaa244761cbeee7-1677540765 # {"$imagepolicy": "ui-default:ui:tag"}
+      tag: refs-heads-master-fce95cf8e68dd8052e844c50b4fe6cc0f56b0f53-1680028631 # {"$imagepolicy": "ui-default:ui:tag"}
     replicaCount: 2
     serviceAccount:
       iamRole: ui-role-staging
