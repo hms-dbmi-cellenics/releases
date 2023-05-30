@@ -14,7 +14,7 @@ spec:
   interval: 5m0s
   url: https://github.com/hms-dbmi-cellenics/pipeline
   ref:
-    commit: e8233df4f7f5bc4f0243136087d3106bd752b78c
+    commit: 6b1d8e8a986ef18d07755439d695cd78aedae2c1
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
@@ -81,13 +81,13 @@ spec:
         namespace: pipeline-default
       reconcileStrategy: Revision
   values:
-    replicaCount: 3
+    replicaCount: 1
     clusterEnv: production
     sandboxId: default
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: pipeline
-      tag: refs-tags-0.31.1-pipeline-runner # {"$imagepolicy": "pipeline-default:pipeline:tag"}
+      tag: refs-tags-0.32.0-pipeline-runner # {"$imagepolicy": "pipeline-default:pipeline:tag"}
     memoryRequest: 40Gi
     serviceAccount:
       iamRole: pipeline-role-production
