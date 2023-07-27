@@ -110,7 +110,7 @@ spec:
     name: account-config
     valuesKey: account-config.yaml
     optional: false
-      # filled in by CI. do not modify.
+    # filled in by CI. do not modify.
 ---
 apiVersion: v1
 kind: Namespace
@@ -217,7 +217,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: refs-pull-442-merge-4b80a0a48ae1bf9b55592a1c8ad0b222d32a42b6-1690206976 # {"$imagepolicy": "api-alex-ui848-api442-worker30:api:tag"}
+      tag: refs-pull-442-merge-9eef3d7bc6d6fd09ad1ef7e8d1d4472ef355f0d8-1690456005 # {"$imagepolicy": "api-alex-ui848-api442-worker30:api:tag"}
     replicaCount: 1
     serviceAccount:
       iamRole: api-role-staging
