@@ -85,9 +85,9 @@ spec:
     # its own health checks/cordoning
     readinessProbe:
       probeType: exec
-      command: ["echo", "0"]
+      command: ['echo', '0']
     loadBalancerHealthCheck:
-      path: "/robots.txt"
+      path: '/robots.txt'
       periodSeconds: 30
     livenessProbe:
       probeType: tcpSocket
@@ -101,7 +101,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: ui
-      tag: 0.50.1 # {"$imagepolicy": "ui-default:ui:tag"}
+      tag: 0.51.0 # {"$imagepolicy": "ui-default:ui:tag"}
     replicaCount: 4
     serviceAccount:
       iamRole: ui-role-production
