@@ -102,13 +102,13 @@ spec:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-845490febaf9c18517fd6220ba6d234c08ebc2d3-1691671184-r # {"$imagepolicy": "worker-default:worker-r:tag"}
+        tag: refs-heads-master-845490febaf9c18517fd6220ba6d234c08ebc2d3-1691671220-r # {"$imagepolicy": "worker-default:worker-r:tag"}
       memoryRequest: 20Gi
     python:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-845490febaf9c18517fd6220ba6d234c08ebc2d3-1691671184-python # {"$imagepolicy": "worker-default:worker-python:tag"}
+        tag: refs-heads-master-845490febaf9c18517fd6220ba6d234c08ebc2d3-1691671220-python # {"$imagepolicy": "worker-default:worker-python:tag"}
     kubernetes:
       env: staging
     serviceAccount:
