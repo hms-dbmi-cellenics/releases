@@ -14,7 +14,7 @@ spec:
   interval: 5m0s
   url: https://github.com/hms-dbmi-cellenics/worker
   ref:
-    branch: fix-tagging-uploaded-ecr-images
+    branch: fix-buildcache
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
@@ -102,13 +102,13 @@ spec:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-7e549656ed2395d6e082c40706cf7c21a1296ca1-1692303236-r # {"$imagepolicy": "worker-STAGING_SANDBOX_ID:worker-r:tag"}
+        tag: refs-heads-master-8edcd7505bc8c71f62dbafbdb44b2c9c894cfc44-1692309595-r # {"$imagepolicy": "worker-STAGING_SANDBOX_ID:worker-r:tag"}
       memoryRequest: 4Gi
     python:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-7e549656ed2395d6e082c40706cf7c21a1296ca1-1692303236-python # {"$imagepolicy": "worker-STAGING_SANDBOX_ID:worker-python:tag"}
+        tag: refs-heads-master-8edcd7505bc8c71f62dbafbdb44b2c9c894cfc44-1692309595-python # {"$imagepolicy": "worker-STAGING_SANDBOX_ID:worker-python:tag"}
     kubernetes:
       env: staging
     serviceAccount:
