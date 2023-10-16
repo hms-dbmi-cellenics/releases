@@ -129,7 +129,7 @@ spec:
   interval: 5m0s
   url: https://github.com/hms-dbmi-cellenics/iac
   ref:
-    branch: master
+    branch: scale-worker-from-zero
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
