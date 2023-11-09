@@ -218,7 +218,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: refs-pull-491-merge-a77951aa516fb4ca60dcb3998d09374ceb45ce98-1699469277 # {"$imagepolicy": "api-alex-api491-worker347:api:tag"}
+      tag: refs-pull-491-merge-a77951aa516fb4ca60dcb3998d09374ceb45ce98-1699571309 # {"$imagepolicy": "api-alex-api491-worker347:api:tag"}
     replicaCount: 1
     serviceAccount:
       iamRole: api-role-staging
