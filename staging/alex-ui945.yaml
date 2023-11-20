@@ -1,0 +1,454 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ui-alex-ui945
+  labels:
+    sandboxId: alex-ui945
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: ui-chart
+  namespace: ui-alex-ui945
+spec:
+  interval: 5m0s
+  url: https://github.com/hms-dbmi-cellenics/iac
+  ref:
+    branch: master
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: ui
+  namespace: ui-alex-ui945
+spec:
+  image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/ui
+  interval: 2m0s
+  provider: aws
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: ui
+  namespace: ui-alex-ui945
+spec:
+  imageRepositoryRef:
+    name: ui
+    namespace: ui-alex-ui945
+  filterTags:
+    pattern: ^refs-pull-945-merge-[a-f0-9]+-(?P<timestamp>[0-9]+)$
+    extract: $timestamp
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: ui-image-update
+  namespace: ui-alex-ui945
+spec:
+  interval: 2m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    commit:
+      author:
+        name: Flux - UI image update
+        email: ci@biomage.net
+  update:
+    strategy: Setters
+    path: ./staging
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ui
+  namespace: ui-alex-ui945
+  labels:
+    sandboxId: alex-ui945
+spec:
+  releaseName: ui
+  interval: 2m0s
+  chart:
+    spec:
+      chart: charts/nodejs
+      sourceRef:
+        kind: GitRepository
+        name: ui-chart
+        namespace: ui-alex-ui945
+      reconcileStrategy: Revision
+  values:
+    # disable readiness probes as load balancer performs
+    # its own health checks/cordoning
+    readinessProbe:
+      probeType: exec
+      command: [echo, '0']
+    loadBalancerHealthCheck:
+      path: /robots.txt
+      periodSeconds: 30
+    livenessProbe:
+      probeType: tcpSocket
+    service:
+      additionalHosts: false
+    kubernetes:
+      env: staging
+    biomageCi:
+      repo: hms-dbmi-cellenics/ui
+      sandboxId: alex-ui945
+    image:
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+      repository: ui
+      tag: refs-pull-945-merge-d1577967af6e6cc834ded1de7306904ff99a6214-1700501189 # {"$imagepolicy": "ui-alex-ui945:ui:tag"}
+    replicaCount: 1
+    serviceAccount:
+      iamRole: ui-role-staging
+  valuesFrom:
+  - kind: ConfigMap
+    name: account-config
+    valuesKey: account-config.yaml
+    optional: false
+      # filled in by CI. do not modify.
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: api-alex-ui945
+  labels:
+    sandboxId: alex-ui945
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: api-chart
+  namespace: api-alex-ui945
+spec:
+  interval: 5m0s
+  url: https://github.com/hms-dbmi-cellenics/iac
+  ref:
+    commit: 0744e1e48aa4cf33474809669fd54e1de689af34
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: api
+  namespace: api-alex-ui945
+spec:
+  image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/api
+  interval: 2m0s
+  provider: aws
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: api
+  namespace: api-alex-ui945
+spec:
+  imageRepositoryRef:
+    name: api
+  filterTags:
+    pattern: ^refs-heads-master-[a-f0-9]+-(?P<timestamp>[0-9]+)$
+    extract: $timestamp
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: api-image-update
+  namespace: api-alex-ui945
+spec:
+  interval: 2m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    commit:
+      author:
+        name: Flux - API image update
+        email: ci@biomage.net
+  update:
+    strategy: Setters
+    path: ./staging
+  suspend: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: api
+  namespace: api-alex-ui945
+  labels:
+    sandboxId: alex-ui945
+spec:
+  releaseName: api
+  interval: 2m0s
+  chart:
+    spec:
+      chart: charts/nodejs
+      sourceRef:
+        kind: GitRepository
+        name: api-chart
+        namespace: api-alex-ui945
+      reconcileStrategy: Revision
+  values:
+    service:
+      externalPort: 3000
+      internalPort: 3000
+    readinessProbe:
+      path: /v2/health
+    livenessProbe:
+      probeType: tcpSocket
+    resources:
+      requests:
+        cpu: 100m
+    hpa:
+      enabled: false
+    loadBalancerHealthCheck:
+      path: /
+    kubernetes:
+      env: staging
+    biomageCi:
+      repo: hms-dbmi-cellenics/api
+      sandboxId: alex-ui945
+      rdsSandboxId: default
+    image:
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+      repository: api
+      tag: refs-heads-master-280af478140ed7f20048588fb8c6fe65f32548f6-1700051387 # {"$imagepolicy": "api-alex-ui945:api:tag"}
+    replicaCount: 1
+    serviceAccount:
+      iamRole: api-role-staging
+  valuesFrom:
+  - kind: ConfigMap
+    name: account-config
+    valuesKey: account-config.yaml
+    optional: false
+# filled in by CI. do not modify.
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: worker-alex-ui945
+  labels:
+    sandboxId: alex-ui945
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: worker-chart
+  namespace: worker-alex-ui945
+spec:
+  interval: 5m0s
+  url: https://github.com/hms-dbmi-cellenics/worker
+  ref:
+    commit: d2e010d9a4a3ab06705b0ffa2054b8b1cf34b128
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: worker
+  namespace: worker-alex-ui945
+spec:
+  image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/worker
+  interval: 2m0s
+  provider: aws
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: worker-r
+  namespace: worker-alex-ui945
+spec:
+  imageRepositoryRef:
+    name: worker
+    namespace: worker-alex-ui945
+  filterTags:
+    pattern: ^refs-heads-master-[a-f0-9]+-(?P<timestamp>[0-9]+)-r$
+    extract: $timestamp
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: worker-python
+  namespace: worker-alex-ui945
+spec:
+  imageRepositoryRef:
+    name: worker
+  filterTags:
+    pattern: ^refs-heads-master-[a-f0-9]+-(?P<timestamp>[0-9]+)-python$
+    extract: $timestamp
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: worker-image-update
+  namespace: worker-alex-ui945
+spec:
+  interval: 2m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    commit:
+      author:
+        name: Flux - Worker image update
+        email: ci@biomage.net
+  update:
+    strategy: Setters
+    path: ./staging
+  suspend: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: worker
+  namespace: worker-alex-ui945
+  labels:
+    sandboxId: alex-ui945
+spec:
+  releaseName: worker
+  interval: 2m0s
+  chart:
+    spec:
+      chart: chart-infra/
+      sourceRef:
+        kind: GitRepository
+        name: worker-chart
+        namespace: worker-alex-ui945
+      reconcileStrategy: Revision
+  values:
+    sandboxId: alex-ui945
+    replicaCount: 0
+    r:
+      image:
+        registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+        repository: worker
+        tag: refs-heads-master-d2e010d9a4a3ab06705b0ffa2054b8b1cf34b128-1700051390-r # {"$imagepolicy": "worker-alex-ui945:worker-r:tag"}
+      memoryRequest: 4Gi
+    python:
+      image:
+        registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+        repository: worker
+        tag: refs-heads-master-d2e010d9a4a3ab06705b0ffa2054b8b1cf34b128-1700051390-python # {"$imagepolicy": "worker-alex-ui945:worker-python:tag"}
+    kubernetes:
+      env: staging
+    serviceAccount:
+      iamRole: worker-role-staging
+    datadogTags: kube_namespace:worker-alex-ui945
+  valuesFrom:
+  - kind: ConfigMap
+    valuesKey: account-config.yaml
+    name: account-config
+    optional: false
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pipeline-alex-ui945
+  labels:
+    sandboxId: alex-ui945
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: pipeline-chart
+  namespace: pipeline-alex-ui945
+spec:
+  interval: 5m0s
+  url: https://github.com/hms-dbmi-cellenics/pipeline
+  ref:
+    commit: 1c1ede066ea38d0ea98d375cfe100a9f0af92706
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: pipeline
+  namespace: pipeline-alex-ui945
+spec:
+  image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/pipeline
+  interval: 2m0s
+  provider: aws
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: pipeline
+  namespace: pipeline-alex-ui945
+spec:
+  imageRepositoryRef:
+    name: pipeline
+    namespace: pipeline-alex-ui945
+  filterTags:
+    pattern: ^refs-heads-master-[a-f0-9]+-pipeline-runner-(?P<timestamp>[0-9]+)
+    extract: $timestamp
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: pipeline-image-update
+  namespace: pipeline-alex-ui945
+spec:
+  interval: 2m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    commit:
+      author:
+        name: Flux - Pipeline image update
+        email: ci@biomage.net
+  update:
+    strategy: Setters
+    path: ./staging
+  suspend: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: pipeline
+  namespace: pipeline-alex-ui945
+  labels:
+    sandboxId: alex-ui945
+spec:
+  releaseName: pipeline
+  interval: 2m0s
+  chart:
+    spec:
+      chart: chart-infra/
+      sourceRef:
+        kind: GitRepository
+        name: pipeline-chart
+        namespace: pipeline-alex-ui945
+      reconcileStrategy: Revision
+  values:
+    replicaCount: 0
+    clusterEnv: staging
+    sandboxId: alex-ui945
+    image:
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+      repository: pipeline
+      tag: refs-heads-master-1c1ede066ea38d0ea98d375cfe100a9f0af92706-pipeline-runner-1700493940 # {"$imagepolicy": "pipeline-alex-ui945:pipeline:tag"}
+    memoryRequest: 4Gi
+    serviceAccount:
+      iamRole: pipeline-role-staging
+    datadogTags: kube_namespace:pipeline-alex-ui945
+  valuesFrom:
+  - kind: ConfigMap
+    valuesKey: account-config.yaml
+    name: account-config
+    optional: false
