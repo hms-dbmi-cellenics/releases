@@ -5,7 +5,7 @@ metadata:
   labels:
     sandboxId: default
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: api-chart
@@ -103,7 +103,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: 0.59.0 # {"$imagepolicy": "api-default:api:tag"}
+      tag: "0.60" # {"$imagepolicy": "api-default:api:tag"}
     replicaCount: 4
     serviceAccount:
       iamRole: api-role-production
