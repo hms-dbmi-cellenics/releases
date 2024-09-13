@@ -14,7 +14,7 @@ spec:
   interval: 5m0s
   url: https://github.com/hms-dbmi-cellenics/worker
   ref:
-    commit: aa1e17dce4ffa218fc77034d67ef2e2b0cad1310
+    commit: 40444f42498b1e99fef5b1ee335b6346c5a4b1d0
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
@@ -102,13 +102,13 @@ spec:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-tags-0.51.0-r # {"$imagepolicy": "worker-default:worker-r:tag"}
+        tag: refs-tags-0.51.1-r # {"$imagepolicy": "worker-default:worker-r:tag"}
       memoryRequest: 44Gi
     python:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-tags-0.51.0-python # {"$imagepolicy": "worker-default:worker-python:tag"}
+        tag: refs-tags-0.51.1-python # {"$imagepolicy": "worker-default:worker-python:tag"}
     kubernetes:
       env: production
     serviceAccount:
