@@ -5,7 +5,7 @@ metadata:
   labels:
     sandboxId: default
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: pipeline-chart
@@ -87,7 +87,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: pipeline
-      tag: refs-heads-master-0d23e05979567046c98901a08fe76b53d1a923f4-pipeline-runner-1716505090 # {"$imagepolicy": "pipeline-default:pipeline:tag"}
+      tag: refs-heads-master-7819c163cf0cb6518958bfdf1b810b2621c2b607-pipeline-runner-1726695770 # {"$imagepolicy": "pipeline-default:pipeline:tag"}
     memoryRequest: 16Gi
     serviceAccount:
       iamRole: pipeline-role-staging
