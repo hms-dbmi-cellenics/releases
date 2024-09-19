@@ -87,10 +87,11 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: pipeline
-      tag: refs-heads-master-7819c163cf0cb6518958bfdf1b810b2621c2b607-pipeline-runner-1726695770 # {"$imagepolicy": "pipeline-default:pipeline:tag"}
+      tag: refs-heads-master-d6f3ec8b6739e4261afd35f51480020888606ef2-pipeline-runner-1726787136 # {"$imagepolicy": "pipeline-default:pipeline:tag"}
     memoryRequest: 16Gi
     serviceAccount:
       iamRole: pipeline-role-staging
+    accountId: "160782110667"
     datadogTags: kube_namespace:pipeline-default
   valuesFrom:
     - kind: ConfigMap
