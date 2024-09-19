@@ -217,7 +217,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: refs-pull-527-merge-65a3e3fdad45a3e9836150136f735b1a9ce6180e-1726777877 # {"$imagepolicy": "api-alex-ui1000-api527-pipelin:api:tag"}
+      tag: refs-pull-527-merge-65a3e3fdad45a3e9836150136f735b1a9ce6180e-1726780777 # {"$imagepolicy": "api-alex-ui1000-api527-pipelin:api:tag"}
     replicaCount: 1
     serviceAccount:
       iamRole: api-role-staging
