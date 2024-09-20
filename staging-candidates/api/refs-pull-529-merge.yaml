@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: api-STAGING_SANDBOX_ID
+  labels:
+    sandboxId: STAGING_SANDBOX_ID
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: api-chart
+  namespace: api-STAGING_SANDBOX_ID
+spec:
+  interval: 5m0s
+  url: https://github.com/hms-dbmi-cellenics/iac
+  ref:
+    branch: master
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: api
+  namespace: api-STAGING_SANDBOX_ID
+spec:
+  image: 160782110667.dkr.ecr.us-east-1.amazonaws.com/api
+  interval: 2m0s
+  provider: aws
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: api
+  namespace: api-STAGING_SANDBOX_ID
+spec:
+  imageRepositoryRef:
+    name: api
+  filterTags:
+    pattern: ^refs-pull-529-merge-[a-f0-9]+-(?P<timestamp>[0-9]+)$
+    extract: $timestamp
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: api-image-update
+  namespace: api-STAGING_SANDBOX_ID
+spec:
+  interval: 2m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    commit:
+      author:
+        name: Flux - API image update
+        email: ci@biomage.net
+  update:
+    strategy: Setters
+    path: ./staging
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: api
+  namespace: api-STAGING_SANDBOX_ID
+  labels:
+    sandboxId: STAGING_SANDBOX_ID
+spec:
+  releaseName: api
+  interval: 2m0s
+  chart:
+    spec:
+      chart: charts/nodejs
+      sourceRef:
+        kind: GitRepository
+        name: api-chart
+        namespace: api-STAGING_SANDBOX_ID
+      reconcileStrategy: Revision
+  values:
+    service:
+      externalPort: 3000
+      internalPort: 3000
+    readinessProbe:
+      path: "/v2/health"
+    livenessProbe:
+      probeType: tcpSocket
+    resources:
+      requests:
+        cpu: "100m"
+    hpa:
+      enabled: false
+    loadBalancerHealthCheck:
+      path: "/"
+    kubernetes:
+      env: staging
+    biomageCi:
+      repo: hms-dbmi-cellenics/api
+      sandboxId: STAGING_SANDBOX_ID
+      rdsSandboxId: STAGING_RDS_SANDBOX_ID
+    image:
+      registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
+      repository: api
+      tag: refs-pull-529-merge-e750868bf5e957a380fac079c3d6f0525ff972db-1726847555 # {"$imagepolicy": "api-STAGING_SANDBOX_ID:api:tag"}
+    replicaCount: 1
+    serviceAccount:
+      iamRole: api-role-staging
+  valuesFrom:
+    - kind: ConfigMap
+      name: account-config
+      valuesKey: account-config.yaml
+      optional: false
+# filled in by CI. do not modify.
