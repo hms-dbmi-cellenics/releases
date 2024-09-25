@@ -108,7 +108,7 @@ spec:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-de09ced5494a2b4ebd019a1ec34950cd53e76a9b-1727225613-python # {"$imagepolicy": "worker-default:worker-python:tag"}
+        tag: refs-heads-master-52e91f8fa6bc21dd2f07d13b6d0348ac343a0e67-1727305080-python # {"$imagepolicy": "worker-default:worker-python:tag"}
     kubernetes:
       env: staging
     serviceAccount:
