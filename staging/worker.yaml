@@ -57,7 +57,7 @@ spec:
     numerical:
       order: asc
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
 metadata:
   name: worker-image-update
@@ -77,7 +77,7 @@ spec:
     strategy: Setters
     path: ./staging
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: worker
@@ -102,13 +102,13 @@ spec:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-52e91f8fa6bc21dd2f07d13b6d0348ac343a0e67-1727305080-r # {"$imagepolicy": "worker-default:worker-r:tag"}
+        tag: refs-heads-master-f6b905afca1a4eaa4b299e3b3d39bd3e7447ab8f-1732569622-r # {"$imagepolicy": "worker-default:worker-r:tag"}
       memoryRequest: 20Gi
     python:
       image:
         registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
         repository: worker
-        tag: refs-heads-master-52e91f8fa6bc21dd2f07d13b6d0348ac343a0e67-1727305080-python # {"$imagepolicy": "worker-default:worker-python:tag"}
+        tag: refs-heads-master-f6b905afca1a4eaa4b299e3b3d39bd3e7447ab8f-1732569622-python # {"$imagepolicy": "worker-default:worker-python:tag"}
     kubernetes:
       env: staging
     serviceAccount:
