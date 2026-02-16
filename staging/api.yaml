@@ -103,7 +103,7 @@ spec:
     image:
       registry: 160782110667.dkr.ecr.us-east-1.amazonaws.com
       repository: api
-      tag: refs-heads-master-11ec2b18ee01b4ef20a720d1141e0bba1c9e1242-1771170789 # {"$imagepolicy": "api-default:api:tag"}
+      tag: refs-heads-master-fe6f1ce2780fb1bbce8a3eb1531ab0b2c9465e49-1771238698 # {"$imagepolicy": "api-default:api:tag"}
     replicaCount: 2
     serviceAccount:
       iamRole: api-role-staging
